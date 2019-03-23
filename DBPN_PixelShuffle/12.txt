@@ -1,0 +1,1167 @@
+Namespace(batchSize=6, data_augmentation=True, data_dir='/home/teacher-chen/Data', feature_extractor='VGG', gpu_mode=True, gpus=2, hr_train_dataset='DIV2K_train_HR', load_pretrained=True, load_pretrained_D=True, lr=0.01, model_type='DBPNLL', nEpochs=2000, patch_size=60, prefix='PIRM_VGG', pretrained=False, pretrained_D='centos7DBPNLLPIRM_VGGVGG_epoch_Discriminator_124.pth', pretrained_iter=50, pretrained_sr='centos7DBPNLLPIRM_VGGVGG_epoch_199.pth', save_folder='weights/', seed=123, snapshots=25, start_iter=199, threads=4, upscale_factor=4, w1=0.01, w2=0.1, w3=0.001, w4=10)
+===> Loading datasets
+===> Building model  DBPNLL
+---------- Generator architecture -------------
+DataParallel(
+  (module): Net(
+    (feat0): ConvBlock(
+      (conv): Conv2d(3, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (act): PReLU(num_parameters=1)
+    )
+    (feat1): ConvBlock(
+      (conv): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+      (act): PReLU(num_parameters=1)
+    )
+    (up1): UpBlock(
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (down1): DownBlock(
+      (down_conv1): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv2): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv3): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (up2): UpBlock(
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (down2): D_DownBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv1): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv2): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv3): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (up3): D_UpBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(128, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (down3): D_DownBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv1): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv2): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv3): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (up4): D_UpBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(192, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (down4): D_DownBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv1): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv2): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv3): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (up5): D_UpBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(256, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (down5): D_DownBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(320, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv1): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv2): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv3): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (up6): D_UpBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(320, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (down6): D_DownBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(384, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv1): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv2): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv3): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (up7): D_UpBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(384, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (down7): D_DownBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(448, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv1): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv2): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv3): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (up8): D_UpBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(448, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (down8): D_DownBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(512, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv1): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv2): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv3): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (up9): D_UpBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(512, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (down9): D_DownBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(576, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv1): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv2): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (down_conv3): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (up10): D_UpBlock(
+      (conv): ConvBlock(
+        (conv): Conv2d(576, 64, kernel_size=(1, 1), stride=(1, 1))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv1): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv2): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+      (up_conv3): DeconvBlock(
+        (deconv): ConvTranspose2d(64, 64, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+        (act): PReLU(num_parameters=1)
+      )
+    )
+    (output_conv1): ConvBlock(
+      (conv): Conv2d(576, 64, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (output_conv2): ConvBlock(
+      (conv): Conv2d(64, 48, kernel_size=(8, 8), stride=(4, 4), padding=(2, 2))
+    )
+    (ps): PixelShuffle(upscale_factor=4)
+  )
+)
+Total number of parameters: 15564603
+---------- Discriminator architecture ---------
+DataParallel(
+  (module): Discriminator(
+    (input_conv): ConvBlock(
+      (conv): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (act): LeakyReLU(negative_slope=0.2, inplace)
+    )
+    (conv_blocks): Sequential(
+      (0): ConvBlock(
+        (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        (bn): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.2, inplace)
+      )
+      (1): ConvBlock(
+        (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.2, inplace)
+      )
+      (2): ConvBlock(
+        (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        (bn): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.2, inplace)
+      )
+      (3): ConvBlock(
+        (conv): Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.2, inplace)
+      )
+      (4): ConvBlock(
+        (conv): Conv2d(256, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        (bn): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.2, inplace)
+      )
+      (5): ConvBlock(
+        (conv): Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (bn): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.2, inplace)
+      )
+      (6): ConvBlock(
+        (conv): Conv2d(512, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+        (bn): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (act): LeakyReLU(negative_slope=0.2, inplace)
+      )
+    )
+    (dense_layers): Sequential(
+      (0): DenseBlock(
+        (fc): Linear(in_features=115200, out_features=1024, bias=True)
+        (act): LeakyReLU(negative_slope=0.2, inplace)
+      )
+      (1): DenseBlock(
+        (fc): Linear(in_features=1024, out_features=1, bias=True)
+        (act): Sigmoid()
+      )
+    )
+  )
+)
+Total number of parameters: 122655937
+-----------------------------------------------
+Pre-trained SR model is loaded.
+Pre-trained Discriminator model is loaded.
+Epoch: [199] [   1/ 134] G_loss: 0.37682235, D_loss: 0.07362872, mse:0.00270374, perceptual: 0.20038164, style: 0.17373699, adv: 0.00000000
+Epoch: [199] [   2/ 134] G_loss: 12449226140546410479616.00000000, D_loss: 27.63102150, mse:4530560512.00000000, perceptual: 138747281408.00000000, style: 12449226140546410479616.00000000, adv: 0.00000000
+Epoch: [199] [   3/ 134] G_loss: 1362462507008.00000000, D_loss: 27.63102150, mse:66925.61718750, perceptual: 1661005.12500000, style: 1362460803072.00000000, adv: 0.00000000
+Epoch: [199] [   4/ 134] G_loss: 11525509490091958641054426595328.00000000, D_loss: 27.63102150, mse:29883786854400.00000000, perceptual: 4100532784332800.00000000, style: 11525509490091958641054426595328.00000000, adv: 0.00000000
+Epoch: [199] [   5/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [   6/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [   7/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [   8/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [   9/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  10/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  11/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  12/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  13/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  14/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  15/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  16/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  17/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  18/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  19/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  20/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  21/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  22/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  23/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  24/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  25/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  26/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  27/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  28/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  29/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  30/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  31/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  32/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  33/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  34/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  35/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  36/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  37/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  38/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  39/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  40/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  41/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  42/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  43/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  44/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  45/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  46/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  47/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  48/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  49/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  50/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  51/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  52/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  53/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  54/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  55/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  56/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  57/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  58/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  59/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  60/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  61/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  62/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  63/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  64/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  65/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  66/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  67/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  68/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  69/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  70/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  71/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  72/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  73/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  74/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  75/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  76/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  77/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  78/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  79/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  80/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  81/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  82/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  83/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  84/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  85/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  86/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  87/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  88/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  89/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  90/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  91/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  92/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  93/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  94/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  95/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  96/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  97/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  98/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [  99/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 100/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 101/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 102/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 103/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 104/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 105/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 106/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 107/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 108/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 109/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 110/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 111/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 112/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 113/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 114/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 115/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 116/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 117/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 118/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 119/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 120/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 121/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 122/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 123/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 124/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 125/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 126/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 127/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 128/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 129/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 130/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 131/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 132/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 133/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [199] [ 134/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+===> Epoch 199 Complete: Avg. Loss G: inf D: 27.4254 MSE: inf Perceptual: inf Style: inf Adv: 0.0000
+Checkpoint saved to weights/centos7DBPNLLPIRM_VGGVGG_epoch_199.pth
+/home/teacher-chen/anaconda3/lib/python3.6/site-packages/torch/nn/functional.py:2016: UserWarning: Using a target size (torch.Size([6])) that is different to the input size (torch.Size([6, 1])) is deprecated. Please ensure they have the same size.
+  "Please ensure they have the same size.".format(target.size(), input.size()))
+/home/teacher-chen/anaconda3/lib/python3.6/site-packages/torch/nn/functional.py:2016: UserWarning: Using a target size (torch.Size([2])) that is different to the input size (torch.Size([2, 1])) is deprecated. Please ensure they have the same size.
+  "Please ensure they have the same size.".format(target.size(), input.size()))
+Epoch: [200] [   1/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [   2/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [   3/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [   4/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [   5/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [   6/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [   7/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [   8/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [   9/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  10/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  11/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  12/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  13/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  14/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  15/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  16/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  17/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  18/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  19/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  20/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  21/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  22/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  23/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  24/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  25/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  26/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  27/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  28/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  29/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  30/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  31/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  32/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  33/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  34/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  35/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  36/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  37/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  38/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  39/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  40/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  41/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  42/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  43/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  44/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  45/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  46/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  47/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  48/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  49/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  50/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  51/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  52/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  53/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  54/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  55/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  56/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  57/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  58/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  59/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  60/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  61/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  62/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  63/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  64/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  65/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  66/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  67/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  68/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  69/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  70/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  71/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  72/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  73/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  74/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  75/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  76/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  77/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  78/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  79/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  80/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  81/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  82/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  83/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  84/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  85/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  86/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  87/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  88/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  89/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  90/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  91/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  92/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  93/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  94/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  95/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  96/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  97/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  98/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [  99/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 100/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 101/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 102/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 103/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 104/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 105/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 106/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 107/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 108/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 109/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 110/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 111/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 112/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 113/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 114/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 115/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 116/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 117/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 118/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 119/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 120/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 121/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 122/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 123/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 124/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 125/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 126/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 127/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 128/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 129/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 130/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 131/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 132/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 133/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [200] [ 134/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+===> Epoch 200 Complete: Avg. Loss G: inf D: 27.6310 MSE: inf Perceptual: inf Style: inf Adv: 0.0000
+Epoch: [201] [   1/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [   2/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [   3/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [   4/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [   5/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [   6/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [   7/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [   8/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [   9/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  10/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  11/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  12/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  13/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  14/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  15/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  16/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  17/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  18/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  19/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  20/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  21/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  22/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  23/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  24/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  25/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  26/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  27/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  28/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  29/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  30/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  31/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  32/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  33/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  34/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  35/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  36/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  37/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  38/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  39/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  40/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  41/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  42/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  43/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  44/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  45/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  46/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  47/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  48/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  49/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  50/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  51/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  52/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  53/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  54/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  55/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  56/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  57/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  58/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  59/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  60/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  61/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  62/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  63/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  64/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  65/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  66/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  67/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  68/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  69/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  70/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  71/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  72/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  73/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  74/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  75/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  76/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  77/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  78/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  79/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  80/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  81/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  82/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  83/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  84/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  85/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  86/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  87/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  88/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  89/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  90/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  91/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  92/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  93/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  94/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  95/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  96/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  97/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  98/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [  99/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 100/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 101/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 102/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 103/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 104/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 105/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 106/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 107/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 108/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 109/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 110/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 111/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 112/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 113/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 114/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 115/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 116/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 117/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 118/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 119/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 120/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 121/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 122/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 123/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 124/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 125/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 126/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 127/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 128/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 129/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 130/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 131/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 132/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 133/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [201] [ 134/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+===> Epoch 201 Complete: Avg. Loss G: inf D: 27.6310 MSE: inf Perceptual: inf Style: inf Adv: 0.0000
+Epoch: [202] [   1/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [   2/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [   3/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [   4/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [   5/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [   6/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [   7/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [   8/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [   9/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  10/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  11/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  12/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  13/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  14/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  15/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  16/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  17/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  18/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  19/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  20/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  21/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  22/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  23/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  24/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  25/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  26/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  27/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  28/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  29/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  30/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  31/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  32/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  33/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  34/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  35/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  36/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  37/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  38/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  39/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  40/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  41/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  42/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  43/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  44/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  45/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  46/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  47/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  48/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  49/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  50/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  51/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  52/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  53/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  54/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  55/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  56/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  57/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  58/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  59/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  60/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  61/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  62/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  63/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  64/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  65/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  66/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  67/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  68/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  69/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  70/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  71/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  72/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  73/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  74/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  75/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  76/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  77/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  78/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  79/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  80/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  81/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  82/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  83/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  84/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  85/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  86/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  87/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  88/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  89/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  90/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  91/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  92/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  93/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  94/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  95/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  96/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  97/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  98/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [  99/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 100/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 101/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 102/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 103/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 104/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 105/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 106/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 107/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 108/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 109/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 110/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 111/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 112/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 113/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 114/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 115/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 116/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 117/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 118/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 119/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 120/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 121/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 122/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 123/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 124/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 125/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 126/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 127/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 128/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 129/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 130/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 131/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 132/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 133/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [202] [ 134/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+===> Epoch 202 Complete: Avg. Loss G: inf D: 27.6310 MSE: inf Perceptual: inf Style: inf Adv: 0.0000
+Epoch: [203] [   1/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [   2/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [   3/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [   4/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [   5/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [   6/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [   7/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [   8/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [   9/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  10/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  11/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  12/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  13/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  14/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  15/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  16/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  17/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  18/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  19/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  20/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  21/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  22/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  23/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  24/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  25/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  26/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  27/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  28/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  29/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  30/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  31/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  32/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  33/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  34/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  35/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  36/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  37/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  38/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  39/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  40/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  41/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  42/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  43/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  44/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  45/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  46/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  47/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  48/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  49/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  50/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  51/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  52/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  53/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  54/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  55/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  56/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  57/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  58/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  59/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  60/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  61/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  62/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  63/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  64/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  65/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  66/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  67/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  68/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  69/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  70/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  71/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  72/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  73/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  74/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  75/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  76/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  77/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  78/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  79/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  80/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  81/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  82/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  83/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  84/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  85/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  86/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  87/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  88/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  89/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  90/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  91/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  92/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  93/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  94/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  95/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  96/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  97/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  98/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [  99/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 100/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 101/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 102/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 103/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 104/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 105/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 106/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 107/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 108/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 109/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 110/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 111/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 112/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 113/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 114/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 115/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 116/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 117/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 118/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 119/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 120/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 121/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 122/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 123/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 124/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 125/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 126/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 127/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 128/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 129/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 130/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 131/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 132/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 133/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [203] [ 134/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+===> Epoch 203 Complete: Avg. Loss G: inf D: 27.6310 MSE: inf Perceptual: inf Style: inf Adv: 0.0000
+Epoch: [204] [   1/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [   2/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [   3/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [   4/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [   5/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [   6/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [   7/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [   8/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [   9/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  10/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  11/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  12/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  13/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  14/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  15/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  16/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  17/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  18/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  19/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  20/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  21/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  22/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  23/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  24/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  25/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  26/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  27/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  28/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  29/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  30/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  31/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  32/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  33/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  34/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  35/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  36/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  37/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  38/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  39/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  40/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  41/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  42/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  43/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  44/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  45/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  46/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  47/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  48/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  49/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  50/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  51/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  52/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  53/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  54/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  55/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  56/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  57/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  58/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  59/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  60/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  61/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  62/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  63/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  64/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  65/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  66/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  67/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  68/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  69/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  70/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  71/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  72/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000
+Epoch: [204] [  73/ 134] G_loss: inf, D_loss: 27.63102150, mse:inf, perceptual: inf, style: inf, adv: 0.00000000

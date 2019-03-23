@@ -1,0 +1,390 @@
+19-03-02 22:26:23.719 - INFO:   name: ESRGAN_DPUSx10_x4_DF2K
+  suffix: _ESRGAN
+  model: srragan
+  scale: 4
+  gpu_ids: [2]
+  datasets:[
+    test_1:[
+      name: ESRGAN_DPUSx10_x4_DF2K
+      mode: LRHR
+      dataroot_HR: ../data/val/HR
+      dataroot_LR: ../data/val/LR
+      phase: test
+      scale: 4
+      data_type: img
+    ]
+  ]
+  path:[
+    root: ../
+    pretrain_model_G: ../../model/DPUSx10_DF2K/DPUSx10_DF2K_G.pth
+    results_root: ../results/ESRGAN_DPUSx10_x4_DF2K
+    log: ../results/ESRGAN_DPUSx10_x4_DF2K
+  ]
+  network_G:[
+    which_model_G: DPUSx10
+    norm_type: None
+    mode: CNA
+    nf: 64
+    nb: 0
+    in_nc: 3
+    out_nc: 3
+    gc: 32
+    group: 1
+    scale: 4
+  ]
+  is_train: False
+
+19-03-02 22:26:23.720 - INFO: Dataset [LRHRDataset - ESRGAN_DPUSx10_x4_DF2K] is created.
+19-03-02 22:26:23.720 - INFO: Number of test images in [ESRGAN_DPUSx10_x4_DF2K]: 5
+19-03-02 22:26:43.762 - INFO: Loading pretrained model for G [../../model/DPUSx10_DF2K/DPUSx10_DF2K_G.pth] ...
+19-03-02 22:26:43.878 - INFO: Network G structure: DataParallel - DPUSx10, with parameters: 18,221,866
+19-03-02 22:26:43.878 - INFO: DPUSx10(
+  (model): Sequential(
+    (0): Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): Net(
+      (feat1): Sequential(
+        (0): Conv2d(64, 48, kernel_size=(1, 1), stride=(1, 1))
+        (1): PReLU(num_parameters=1)
+      )
+      (up1): UpBlock(
+        (up_conv1): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (up_conv2): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv3): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+      )
+      (down1): DownBlock(
+        (down_conv1): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv2): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (down_conv3): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+      )
+      (up2): UpBlock(
+        (up_conv1): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (up_conv2): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv3): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+      )
+      (down2): D_DownBlock(
+        (conv): Sequential(
+          (0): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv1): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv2): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (down_conv3): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+      )
+      (up3): D_UpBlock(
+        (conv): Sequential(
+          (0): Conv2d(96, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv1): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (up_conv2): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv3): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+      )
+      (down3): D_DownBlock(
+        (conv): Sequential(
+          (0): Conv2d(144, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv1): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv2): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (down_conv3): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+      )
+      (up4): D_UpBlock(
+        (conv): Sequential(
+          (0): Conv2d(144, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv1): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (up_conv2): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv3): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+      )
+      (down4): D_DownBlock(
+        (conv): Sequential(
+          (0): Conv2d(192, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv1): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv2): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (down_conv3): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+      )
+      (up5): D_UpBlock(
+        (conv): Sequential(
+          (0): Conv2d(192, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv1): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (up_conv2): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv3): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+      )
+      (down5): D_DownBlock(
+        (conv): Sequential(
+          (0): Conv2d(240, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv1): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv2): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (down_conv3): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+      )
+      (up6): D_UpBlock(
+        (conv): Sequential(
+          (0): Conv2d(240, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv1): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (up_conv2): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv3): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+      )
+      (down6): D_DownBlock(
+        (conv): Sequential(
+          (0): Conv2d(288, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv1): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv2): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (down_conv3): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+      )
+      (up7): D_UpBlock(
+        (conv): Sequential(
+          (0): Conv2d(288, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv1): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (up_conv2): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv3): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+      )
+      (down7): D_DownBlock(
+        (conv): Sequential(
+          (0): Conv2d(336, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv1): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv2): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (down_conv3): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+      )
+      (up8): D_UpBlock(
+        (conv): Sequential(
+          (0): Conv2d(336, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv1): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (up_conv2): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv3): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+      )
+      (down8): D_DownBlock(
+        (conv): Sequential(
+          (0): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv1): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv2): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (down_conv3): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+      )
+      (up9): D_UpBlock(
+        (conv): Sequential(
+          (0): Conv2d(384, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv1): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (up_conv2): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (up_conv3): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+      )
+      (down9): D_DownBlock(
+        (conv): Sequential(
+          (0): Conv2d(432, 48, kernel_size=(1, 1), stride=(1, 1))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv1): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+        (down_conv2): DeconvBlock(
+          (deconv): ConvTranspose2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (act): PReLU(num_parameters=1)
+        )
+        (down_conv3): Sequential(
+          (0): Conv2d(48, 48, kernel_size=(12, 12), stride=(8, 8), padding=(2, 2))
+          (1): PReLU(num_parameters=1)
+        )
+      )
+      (feat2): Sequential(
+        (0): Conv2d(48, 64, kernel_size=(1, 1), stride=(1, 1))
+        (1): PReLU(num_parameters=1)
+      )
+    )
+    (2): Upsample(scale_factor=2, mode=nearest)
+    (3): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (4): LeakyReLU(negative_slope=0.2, inplace)
+    (5): Upsample(scale_factor=2, mode=nearest)
+    (6): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (7): LeakyReLU(negative_slope=0.2, inplace)
+    (8): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (9): LeakyReLU(negative_slope=0.2, inplace)
+    (10): Conv2d(64, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+  )
+)
+19-03-02 22:26:43.880 - INFO: Model [SRRaGANModel] is created.
+19-03-02 22:26:43.880 - INFO: 
+Testing [ESRGAN_DPUSx10_x4_DF2K]...
+19-03-02 22:26:48.318 - INFO: 201                  - PSNR: 21.457791 dB; SSIM: 0.556352; PSNR_Y: 22.829233 dB; SSIM_Y: 0.578316.
+19-03-02 22:26:57.547 - INFO: 202                  - PSNR: 19.770437 dB; SSIM: 0.462121; PSNR_Y: 21.023797 dB; SSIM_Y: 0.480936.
+19-03-02 22:27:01.799 - INFO: 203                  - PSNR: 23.227877 dB; SSIM: 0.714326; PSNR_Y: 24.918928 dB; SSIM_Y: 0.745614.
+19-03-02 22:27:07.483 - INFO: 204                  - PSNR: 22.952892 dB; SSIM: 0.702651; PSNR_Y: 24.332058 dB; SSIM_Y: 0.720655.
+19-03-02 22:27:11.839 - INFO: 205                  - PSNR: 26.431661 dB; SSIM: 0.758733; PSNR_Y: 28.239189 dB; SSIM_Y: 0.821649.
+19-03-02 22:27:11.890 - INFO: ----Average PSNR/SSIM results for ESRGAN_DPUSx10_x4_DF2K----
+	PSNR: 22.768132 dB; SSIM: 0.638836
+
+19-03-02 22:27:11.891 - INFO: ----Y channel, average PSNR/SSIM----
+	PSNR_Y: 24.268641 dB; SSIM_Y: 0.669434
+

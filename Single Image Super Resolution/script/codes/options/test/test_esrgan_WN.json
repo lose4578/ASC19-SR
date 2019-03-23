@@ -1,0 +1,34 @@
+{
+  "name": "ESRGAN_WN_x4_DF2K"
+  , "suffix": "_ESRGAN"
+  , "model": "srragan"
+  , "scale": 4
+  , "gpu_ids": [0]
+
+  , "datasets": {
+    "test_1": { // the 1st test dataset
+      "name": "ESRGAN_WN_x4_DF2K"
+      , "mode": "LRHR"
+      , "dataroot_HR": "../data/test/HR"
+      , "dataroot_LR": "../data/test/LR"
+    }
+  }
+
+  , "path": {
+    "root": "../"
+    , "pretrain_model_G": "../../model/wn_2up_esrgan.pth"
+  }
+
+  , "network_G": {
+    "which_model_G": "RRDBNet_WN" // RRDB_net | sr_resnet
+    , "norm_type": null
+    , "mode": "CNA"
+    , "nf": 64
+    , "nb": 23
+    , "in_nc": 3
+    , "out_nc": 3
+
+    , "gc": 32
+    , "group": 1
+  }
+}

@@ -1,0 +1,39 @@
+19-03-02 22:31:10.038 - INFO:   name: ESRGAN_WN_x4_DF2K
+  suffix: _ESRGAN
+  model: srragan
+  scale: 4
+  gpu_ids: [2]
+  datasets:[
+    test_1:[
+      name: ESRGAN_WN_x4_DF2K_90000_G
+      mode: LRHR
+      dataroot_HR: ../data/val/HR
+      dataroot_LR: ../data/val/LR
+      phase: test
+      scale: 4
+      data_type: img
+    ]
+  ]
+  path:[
+    root: ../
+    pretrain_model_G: ../../model/wn_2up_esrgan.pth
+    results_root: ../results/ESRGAN_WN_x4_DF2K
+    log: ../results/ESRGAN_WN_x4_DF2K
+  ]
+  network_G:[
+    which_model_G: RRDBNet_WN
+    norm_type: None
+    mode: CNA
+    nf: 64
+    nb: 23
+    in_nc: 3
+    out_nc: 3
+    gc: 32
+    group: 1
+    scale: 4
+  ]
+  is_train: False
+
+19-03-02 22:31:10.039 - INFO: Dataset [LRHRDataset - ESRGAN_WN_x4_DF2K_90000_G] is created.
+19-03-02 22:31:10.039 - INFO: Number of test images in [ESRGAN_WN_x4_DF2K_90000_G]: 5
+19-03-02 22:31:25.359 - INFO: Loading pretrained model for G [../../model/wn_2up_esrgan.pth] ...
